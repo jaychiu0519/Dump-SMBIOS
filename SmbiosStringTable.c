@@ -1505,16 +1505,32 @@ STATIC CONST TYPE42_ITEM mMcHostInterfaceTypeTable[] = {
   { 0x40, "Network Host Interface" } 
 };
 
+/**
+  Retrieves the string description for a given Management Controller 
+  Host Interface Type (Type 42, Offset 0x04).
+  Values are strictly aligned with DMTF SMBIOS Specification DSP0134.
+
+  @param[in] InterfaceType   The 8-bit interface type value.
+  @return                    A pointer to the corresponding description string.
+**/
 CONST CHAR8 *
 GetMcHostInterfaceTypeString (
   IN UINT8 InterfaceType
   )
 {
-  UINTN Index;
-  for (Index = 0; Index < ARRAY_SIZE (mMcHostInterfaceTypeTable); Index++) {
-    if (mMcHostInterfaceTypeTable[Index].Value == InterfaceType) {
-      return mMcHostInterfaceTypeTable[Index].Description;
-    }
+  if (InterfaceType <= 0x3F) {
+    return "MCTP Host Interface";
+  } 
+  
+  else if (InterfaceType == 0x40) {
+    return "Network Host Interface";
+  } 
+  
+  else if (InterfaceType == 0xF0) {
+    return "OEM-defined";
+  } 
+
+  else {
+    return "Reserved";
   }
-  return "Reserved / Other";
 }
