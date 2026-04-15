@@ -1,0 +1,43 @@
+##  @file
+#  EFI application that displays and verifies ACPI tables
+#
+#  Copyright (c) 2020, ARM Limited. All rights reserved.<BR>
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = Dump_SMBios
+  FILE_GUID                      = e6a72736-f0b0-43b8-b20c-08006905886d
+  MODULE_TYPE                    = UEFI_APPLICATION
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UefiMain
+  UEFI_HII_RESOURCE_SECTION      = TRUE
+
+[Sources.common]
+  Dump_SMBios.c
+  SmbiosStringTable.c
+  MemoryDumpUtil.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiLib
+  UefiBootServicesTableLib
+  BaseMemoryLib
+  PrintLib
+  MemoryAllocationLib
+  BaseLib
+
+[Protocols]
+  gEfiShellParametersProtocolGuid
+
+[Guids]
+  gEfiSmbiosTableGuid
+  gEfiSmbios3TableGuid
